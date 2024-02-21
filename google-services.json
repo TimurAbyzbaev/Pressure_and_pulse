@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "730449911858",
+    "project_id": "pressure-and-pulse-656a9",
+    "storage_bucket": "pressure-and-pulse-656a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730449911858:android:5e90c178ca65b564365c2b",
+        "android_client_info": {
+          "package_name": "ru.abyzbaev.pressureandpulse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRwIAf5UefTRSC3FWQc-Nh63lFKzNfPpk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

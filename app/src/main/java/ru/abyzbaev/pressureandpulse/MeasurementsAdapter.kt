@@ -10,10 +10,17 @@ import java.util.*
 
 class MeasurementsAdapter(var measurements: List<Measurement>) : RecyclerView.Adapter<MeasurementsAdapter.ViewHolder>() {
 
+    init {
+        val sortedMeasurements = measurements.sortedByDescending { it.timestamp }
+        // Присвойте отсортированный список переменной класса
+        this.measurements = sortedMeasurements
+    }
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val pressureTextView: TextView = view.findViewById(R.id.pressureTextView)
         val pulseTextView: TextView = view.findViewById(R.id.pulseTextView)
         val timestampTextView: TextView = view.findViewById(R.id.timestampTextView)
+        val timestampTimeTextView: TextView = view.findViewById(R.id.timestampTimeTextView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,9 +30,13 @@ class MeasurementsAdapter(var measurements: List<Measurement>) : RecyclerView.Ad
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val measurement = measurements[position]
-        holder.pressureTextView.text = "Pressure: ${measurement.pressure}"
-        holder.pulseTextView.text = "Pulse: ${measurement.pulse}"
-        holder.timestampTextView.text = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date(measurement.timestamp))
+        holder.pressureTextView.text = "${measurement.upperPressure}  /  ${measurement.lowerPressure}"
+        holder.pulseTextView.text = "${measurement.pulse}"
+val date = Date(measurement.timestamp)
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        holder.timestampTextView.text = dateFormat.format(date)
+        holder.timestampTimeTextView.text = timeFormat.format(date)
     }
 
     override fun getItemCount(): Int {

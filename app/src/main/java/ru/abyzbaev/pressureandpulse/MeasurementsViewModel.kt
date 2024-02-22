@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MeasurementsViewModel : ViewModel() {
     private val db = Firebase.firestore
@@ -14,14 +16,21 @@ class MeasurementsViewModel : ViewModel() {
         measurementsCollection.add(measurement)
     }
 
-    fun getMeasurements(): LiveData<List<Measurement>> {
-        val measurementsLiveData = MutableLiveData<List<Measurement>>()
+    fun getMeasurements(): LiveData<List<MeasurementGroup>> {
+        val measurementsLiveData = MutableLiveData<List<MeasurementGroup>>()
         measurementsCollection.addSnapshotListener { value, _ ->
             val measurements = value?.documents?.mapNotNull { doc ->
                 doc.toObject(Measurement::class.java)
             }
-            measurementsLiveData.value = measurements
+            val groupedMeasurements = measurements?.groupBy {
+                SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date(it.timestamp))
+            } ?: emptyMap()
+            val measurementGroups = groupedMeasurements.map { (date, measurements) ->
+                MeasurementGroup(date, measurements)
+            }
+            measurementsLiveData.value = measurementGroups
         }
         return measurementsLiveData
     }
 }
+

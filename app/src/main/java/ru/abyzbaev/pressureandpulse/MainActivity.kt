@@ -1,13 +1,11 @@
 package ru.abyzbaev.pressureandpulse
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -28,8 +26,8 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        viewModel.getMeasurements().observe(this, { measurements ->
-            adapter.measurements = measurements
+        viewModel.getMeasurements().observe(this, { measurementGroups ->
+            adapter.measurementGroups = measurementGroups
             adapter.notifyDataSetChanged()
         })
 
@@ -44,3 +42,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+

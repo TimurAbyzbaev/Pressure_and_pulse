@@ -35,8 +35,9 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener {
             val measurement = Measurement(
-                pressure = Random.nextInt(100, 180),
-                pulse = Random.nextInt(50, 100),
+                upperPressure = Random.nextInt(100, 180),
+                lowerPressure = Random.nextInt(40, 120),
+                pulse = Random.nextInt(50, 130),
                 timestamp = System.currentTimeMillis()
             )
             viewModel.addMeasurement(measurement)
